@@ -20,107 +20,42 @@ function calculate(input){
     }
     return result;
 }
-    
-window.onload = function() {
 
-var current,
-    screen,
-    output,
-    limit,
-    zero,
-    calculatorOperator;
-    
-    screen = document.getElementById("calcText");
+/*
 
-var elem = document.querySelectorAll(".calculatorNumber");
-    
-      var len = elem.length;
-    
-      for(var i = 0; i < len; i++ ) {
-        
-        elem[i].addEventListener("click",function() {
-                  
-            this.calculatorNumber = this.value;
-                     
-            output = screen.innerHTML +=this.calculatorNumber;
-                  
-            limit = output.length;
-         
-         if(limit > 16 ) {
-        
-         alert("Error");
-             
-       }
-       
-     });
-        
-    } 
+1. On click of any of the .calculatorNumber or .calculatorOperator buttons you need to check if the current #calcText span's text is equal to 0.
+    If the text is equal to 0, set the text equal to the clicked button's text.
+    Otherwise if the text is NOT equal to 0, add the clicked button's text to the display after the existing text.
+2. On click of the .calculatorClear button you should set the #calcText span's text to 0.
+3. On click of the .calculatorEquals button, call the calculate function as described above the function definition and display the returned result
 
-    $(".zero").addEventListener("click",function() {
-        
-        zero = this.value;
-        
-        if(screen.innerHTML === "") {
-            
-           output = screen.innerHTML = zero;  
-        }
-        
-        else if(screen.innerHTML === output) {
-            
-         output = screen.innerHTML +=zero;
-            
-        }
-          
-    },false);
+*/
 
-    
-    
-    $("#equals").addEventListener("click",function() {
-        
-      if(screen.innerHTML === output) {
-          
-        screen.innerHTML = eval(output);
-      }
-        
-      else {
-            screen.innerHTML = "";
-      }
-          
-    });
-    
- $("#clear").addEventListener("click",function() {
-        
-        screen.innerHTML = "";
-        
-    });
-    
-   
-     var elem1 = document.querySelectorAll(".calculatorOperator");
-    
-      var len1 = elem1.length;
-    
-      for(var j = 0; j < len1; j++ ) {
-        
-        elem1[i].addEventListener("click",function() {
-         
-        calculatorOperator = this.value;
-         
-         if(screen.innerHTML === "") {
-            
-            screen.innerHTML = screen.innerHTML.concat("");
-            
-        }
-        
-        else if(output) {
-        
-            screen.innerHTML = output.concat(calculatorOperator);
-            
-        }
-           
-    });
-          
-      }   
-};
+$(".calculatorClear").click(function(e){
+    console.log("Calc Clear Clicked!");
+    $("#calcText").text("0");
+});
+
+$(".calculatorEquals").click(function(e){
+    console.log("Calc Equals Clicked!");
+    //get TextString
+    var calcText = $("#calcText").text();
+    var result = calculate(calcText);
+    //display result
+    $("#calcText").text(result);
+});
+
+$(".calculatorNumber, .calculatorOperator").click(function(e){
+    console.log("Button Clicked!");
+    var buttonText = $(this).text();
+    var calcText = $("#calcText").text();
+    if(calcText == "0" || calcText == "ERROR"){
+        $("#calcText").text(buttonText);
+    }else{
+        $("#calcText").append(buttonText);
+        //$("#calcText").text(calcText + buttonText);
+    }
+});
 /*
 
 1. On click of any of the .calculatorNumber or .calculatorOperator buttons you need to check if the current #calcText span's text is equal to 0.
